@@ -3,6 +3,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.ActionLink("Usuarios", "Index", "Usuario")
-@Html.ActionLink("Projetos", "Index", "Projeto")
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <input value="Usuários" type="submit" formaction=@Url.Action("Index", "Usuario") formmethod="get" class="btn btn-primary btn-lg btn-block"/>
+        <input value="Projetos" type="submit" formaction=@Url.Action("Index", "Projeto") formmethod="get" class="btn btn-primary btn-lg btn-block"/>
+    </div>
+
+}
+
+    
 

@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbListaDeAcoesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Acao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Abertura" Type="date" Nullable="false" />
+          <Property Name="Prazo" Type="date" Nullable="false" />
+          <Property Name="Fechamento" Type="date" />
+          <Property Name="Acao" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Responsavel" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Observacoes" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="ProjetoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projeto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Responsavel" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefone" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Acao_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Acao" Type="Self.Acao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Acao">
+              <PropertyRef Name="Responsavel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projeto_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Projeto" Type="Self.Projeto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projeto">
+              <PropertyRef Name="Responsavel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbAcoes_Usuario">
+          <End Role="Projeto" Type="Self.Projeto" Multiplicity="1" />
+          <End Role="Acao" Type="Self.Acao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projeto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Acao">
+              <PropertyRef Name="ProjetoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbListaDeAcoesModelStoreContainer">
+          <EntitySet Name="Acao" EntityType="Self.Acao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projeto" EntityType="Self.Projeto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Acao_Usuario" Association="Self.FK_Acao_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Acao" EntitySet="Acao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projeto_Usuario" Association="Self.FK_Projeto_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Projeto" EntitySet="Projeto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbAcoes_Usuario" Association="Self.FK_TbAcoes_Usuario">
+            <End Role="Projeto" EntitySet="Projeto" />
+            <End Role="Acao" EntitySet="Acao" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbListaDeAcoesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DbListaDeAcoesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Acao" EntityType="DbListaDeAcoesModel.Acao" />
+          <EntitySet Name="Projeto" EntityType="DbListaDeAcoesModel.Projeto" />
+          <EntitySet Name="Usuario" EntityType="DbListaDeAcoesModel.Usuario" />
+          <AssociationSet Name="FK_Acao_Usuario" Association="DbListaDeAcoesModel.FK_Acao_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Acao" EntitySet="Acao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbAcoes_Usuario" Association="DbListaDeAcoesModel.FK_TbAcoes_Usuario">
+            <End Role="Projeto" EntitySet="Projeto" />
+            <End Role="Acao" EntitySet="Acao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projeto_Usuario" Association="DbListaDeAcoesModel.FK_Projeto_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Projeto" EntitySet="Projeto" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Acao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Abertura" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Prazo" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Fechamento" Type="DateTime" Precision="0" />
+          <Property Name="Acao1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Responsavel" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Observacoes" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ProjetoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="DbListaDeAcoesModel.FK_Acao_Usuario" FromRole="Acao" ToRole="Usuario" />
+          <NavigationProperty Name="Projeto" Relationship="DbListaDeAcoesModel.FK_TbAcoes_Usuario" FromRole="Acao" ToRole="Projeto" />
+        </EntityType>
+        <EntityType Name="Projeto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Responsavel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Acao" Relationship="DbListaDeAcoesModel.FK_TbAcoes_Usuario" FromRole="Projeto" ToRole="Acao" />
+          <NavigationProperty Name="Usuario" Relationship="DbListaDeAcoesModel.FK_Projeto_Usuario" FromRole="Projeto" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Acao" Relationship="DbListaDeAcoesModel.FK_Acao_Usuario" FromRole="Usuario" ToRole="Acao" />
+          <NavigationProperty Name="Projeto" Relationship="DbListaDeAcoesModel.FK_Projeto_Usuario" FromRole="Usuario" ToRole="Projeto" />
+        </EntityType>
+        <Association Name="FK_Acao_Usuario">
+          <End Type="DbListaDeAcoesModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="DbListaDeAcoesModel.Acao" Role="Acao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Acao">
+              <PropertyRef Name="Responsavel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbAcoes_Usuario">
+          <End Type="DbListaDeAcoesModel.Projeto" Role="Projeto" Multiplicity="1" />
+          <End Type="DbListaDeAcoesModel.Acao" Role="Acao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projeto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Acao">
+              <PropertyRef Name="ProjetoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projeto_Usuario">
+          <End Type="DbListaDeAcoesModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="DbListaDeAcoesModel.Projeto" Role="Projeto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projeto">
+              <PropertyRef Name="Responsavel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbListaDeAcoesModelStoreContainer" CdmEntityContainer="DbListaDeAcoesEntities">
+          <EntitySetMapping Name="Acao">
+            <EntityTypeMapping TypeName="DbListaDeAcoesModel.Acao">
+              <MappingFragment StoreEntitySet="Acao">
+                <ScalarProperty Name="ProjetoId" ColumnName="ProjetoId" />
+                <ScalarProperty Name="Observacoes" ColumnName="Observacoes" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Responsavel" ColumnName="Responsavel" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Acao1" ColumnName="Acao" />
+                <ScalarProperty Name="Fechamento" ColumnName="Fechamento" />
+                <ScalarProperty Name="Prazo" ColumnName="Prazo" />
+                <ScalarProperty Name="Abertura" ColumnName="Abertura" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projeto">
+            <EntityTypeMapping TypeName="DbListaDeAcoesModel.Projeto">
+              <MappingFragment StoreEntitySet="Projeto">
+                <ScalarProperty Name="Responsavel" ColumnName="Responsavel" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="DbListaDeAcoesModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

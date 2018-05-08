@@ -10,103 +10,109 @@ using Action_List.Models;
 
 namespace Action_List.Controllers
 {
-    public class UsuarioController : Controller
+    public class ProjetoController : Controller
     {
         private readonly DbListaDeAcoesEntities _db = new DbListaDeAcoesEntities();
 
-        // GET: Usuario
+        // GET: Projeto
         public ActionResult Index()
         {
-            return View(_db.Usuario.ToList());
+            var projeto = _db.Projeto.Include(p => p.Usuario);
+            return View(projeto.ToList());
         }
-
-        // GET: Usuario/Create
+        
+        // GET: Projeto/Create
         public ActionResult Create()
         {
+            ViewBag.Responsavel = new SelectList(_db.Usuario.OrderBy(x=> x.Nome), "Id", "Nome");
             return View();
         }
 
-        // POST: Usuario/Create
+        // POST: Projeto/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nome,Email,Telefone")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "Id,Codigo,Title,Responsavel")] Projeto projeto)
         {
-            if (!ModelState.IsValid) return View(usuario);
+            ViewBag.Responsavel = new SelectList(_db.Usuario.OrderBy(x => x.Nome), "Id", "Nome", projeto.Responsavel);
 
-            if (_db.Usuario.Any(x => x.Email == usuario.Email))
+            if (_db.Projeto.Any(x => x.Codigo == projeto.Codigo))
             {
-                ModelState.AddModelError("Email", "Email já cadastrado!");
-                return View(usuario);
+                ModelState.AddModelError("Codigo", "Código já cadastrado!");
+                return View(projeto);
             }
 
-            _db.Usuario.Add(usuario);
+            if (!ModelState.IsValid) return View(projeto);
+
+
+            _db.Projeto.Add(projeto);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        // GET: Usuario/Edit/5
+        // GET: Projeto/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = _db.Usuario.Find(id);
-            if (usuario == null)
+            Projeto projeto = _db.Projeto.Find(id);
+            if (projeto == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            ViewBag.Responsavel = new SelectList(_db.Usuario, "Id", "Nome", projeto.Responsavel);
+            return View(projeto);
         }
 
-        // POST: Usuario/Edit/5
+        // POST: Projeto/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Email,Telefone")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "Id,Codigo,Title,Responsavel")] Projeto projeto)
         {
+            ViewBag.Responsavel = new SelectList(_db.Usuario, "Id", "Nome", projeto.Responsavel);
 
-            if (_db.Usuario.Any(x => x.Id != usuario.Id && x.Email == usuario.Email))
+            if (_db.Projeto.Any(x => x.Id != projeto.Id && x.Codigo == projeto.Codigo))
             {
-                ModelState.AddModelError("Email", "Email já cadastrado!");
-                return View(usuario);
+                ModelState.AddModelError("Codigo", "Código já cadastrado!");
+                return View(projeto);
             }
-
 
             if (ModelState.IsValid)
             {
-                _db.Entry(usuario).State = EntityState.Modified;
+                _db.Entry(projeto).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuario);
+            return View(projeto);
         }
 
-        // GET: Usuario/Delete/5
+        // GET: Projeto/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = _db.Usuario.Find(id);
-            if (usuario == null)
+            Projeto projeto = _db.Projeto.Find(id);
+            if (projeto == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(projeto);
         }
 
-        // POST: Usuario/Delete/5
+        // POST: Projeto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = _db.Usuario.Find(id);
-            _db.Usuario.Remove(usuario);
+            Projeto projeto = _db.Projeto.Find(id);
+            _db.Projeto.Remove(projeto);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

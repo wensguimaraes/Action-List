@@ -1,33 +1,33 @@
-﻿@model IEnumerable<Action_List.Models.Usuario>
+﻿@model IEnumerable<Action_List.Models.Projeto>
 
 @{
+    ViewBag.Title = "Projetos";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Usuários";
-
 }
 
-<link href="~/Content/Personal/usuario.css" rel="stylesheet"/>
+<link href="~/Content/Personal/projeto.css" rel="stylesheet" />
 
-<h2>Usuários</h2>
+<h2>Projetos</h2>
 <div class="row">
-    @Html.ActionLink(" Novo ", "Create", "Usuario", new {@class = "btn btn-outline-info button-add-user " })
+    @Html.ActionLink(" Novo ", "Create", "Projeto", new { @class = "btn btn-outline-info button-add-project " })
 </div>
 
-<div class="form-group input-group" >
+<div class="form-group input-group">
     <input class="form-control" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search here . . .">
 </div>
 
 
 <table id="tabela" class="table table-hover">
+
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.DisplayNameFor(model => model.Codigo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Telefone)
+            @Html.DisplayNameFor(model => model.Usuario.Nome)
         </th>
         <th></th>
     </tr>
@@ -36,21 +36,23 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Nome)
+                @Html.DisplayFor(modelItem => item.Codigo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Telefone)
+                @Html.DisplayFor(modelItem => item.Usuario.Nome)
             </td>
             <td>
                 <div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-outline-info btn-sm" })
-                    @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-info btn-sm" })
+                    @Html.ActionLink("Edit", "Edit", "Projeto", new { id = item.Id }, new { @class = "btn btn-outline-info btn-outlineinfo-warning btn-sm" })
+                    @Html.ActionLink("Delete", "Delete", "Projeto", new { id = item.Id }, new { @class = "btn btn-outline-info btn-outline-info-danger btn-sm" })
+                    @Html.ActionLink("Ações", "Index", "Acao", new { id = item.Acao.ToList() }, new { @class = "btn btn-outline-info btn-outline-info-primary btn-sm" })
                 </div>
-                
+                @*@Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                    @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+                    @Html.ActionLink("Delete", "Delete", new {id = item.Id})*@
             </td>
         </tr>
     }
@@ -61,8 +63,8 @@
 <script>
     
     function myFunction() {
-       
-        
+
+
 
         var found, td, i, j;
         var input = document.getElementById("myInput");

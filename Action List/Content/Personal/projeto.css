@@ -1,0 +1,37 @@
+﻿body {
+}
+
+.button-add-project {
+    padding: 2px;
+    margin: 10pt;
+
+
+    
+}
+
+.search-project {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+
+/*.btn-outline-info-danger:hover, .btn.danger.hover {
+	background: #e74c3c;
+	color: #fff;
+}
+   
+.btn-outlineinfo-warning:hover, .btn.warning.hover {
+	background: #f1c40f;
+	color: #000;
+}
+
+.btn-outline-info-primary:hover, .btn.primary.hover {
+	background: #3498db;
+	color: #fff;
+}*/

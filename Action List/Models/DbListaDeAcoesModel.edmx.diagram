@@ -6,12 +6,12 @@
     <edmx:Diagrams>
       <Diagram DiagramId="48b79e4f20644013bc46e056a096a061" Name="Diagram1">
         <EntityTypeShape EntityType="DbListaDeAcoesModel.Acao" Width="1.5" PointX="5.25" PointY="4.625" />
-        <EntityTypeShape EntityType="DbListaDeAcoesModel.Projeto" Width="1.5" PointX="3" PointY="7.25" />
-        <EntityTypeShape EntityType="DbListaDeAcoesModel.Usuario" Width="1.5" PointX="0.75" PointY="3.125" />
+        <EntityTypeShape EntityType="DbListaDeAcoesModel.Projeto" Width="1.5" PointX="3" PointY="8.125" />
+        <EntityTypeShape EntityType="DbListaDeAcoesModel.Usuario" Width="1.5" PointX="0.75" PointY="6.375" />
         <AssociationConnector Association="DbListaDeAcoesModel.FK_Acao_Usuario" />
         <AssociationConnector Association="DbListaDeAcoesModel.FK_TbAcoes_Usuario" />
         <AssociationConnector Association="DbListaDeAcoesModel.FK_Projeto_Usuario" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

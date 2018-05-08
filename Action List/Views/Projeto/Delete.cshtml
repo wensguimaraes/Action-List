@@ -1,13 +1,13 @@
-﻿@model Action_List.Models.Usuario
+﻿@model Action_List.Models.Projeto
 
 @{
-    ViewBag.Title = "Apagar Usuário";
+    ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Apagar Usuário</h2>
+<h2>Delete</h2>
 
-<h3>Confirma a exclusão deste Usuário?</h3>
+<h3>Confirma a exclusão deste Projeto?</h3>
 <div class="form-actions">
     <input type="submit" value="Delete" class="btn btn-outline-danger"/>
 </div>
@@ -17,27 +17,27 @@
 <div>
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.DisplayNameFor(model => model.Codigo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Nome)
+            @Html.DisplayFor(model => model.Codigo)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Email)
+            @Html.DisplayFor(model => model.Title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Telefone)
+            @Html.DisplayNameFor(model => model.Usuario.Nome)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Telefone)
+            @Html.DisplayFor(model => model.Usuario.Nome)
         </dd>
 
     </dl>
@@ -46,5 +46,4 @@
         @Html.AntiForgeryToken()
         @Html.ActionLink("Back to List", "Index")
     }*@
-
 </div>

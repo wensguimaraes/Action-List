@@ -111,7 +111,7 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Projeto" EntitySet="Projeto" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Acao">
           <Key>
             <PropertyRef Name="Id" />
@@ -229,7 +229,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
